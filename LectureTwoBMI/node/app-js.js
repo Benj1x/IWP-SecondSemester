@@ -66,8 +66,11 @@ function BMIEntry(name,height,weight){
     this.userName=name;
     this.weight=weight;
     this.height=height;
+
     this.calcBMI=function(){ //IMPLEMENT ME
-      return 0;
+      let heightMeters = this.height * 0.01;
+      let BMI = weight/(heightMeters*heightMeters);
+      return BMI;
     };
   
      this.calcBMIChange=function (otherBMIEntry){
@@ -84,8 +87,9 @@ function BMIDB() {
   this.bmiData=[]; //
   this.bmiData.push(new BMIEntry("Mickey",180, 90));
 
-  this.lookup= function(userName){//IMPLEMENT ME 
-  };
+  this.lookup= function(userName){ //IMPLEMENT ME
+    return this.bmiData.find(entry=>entry.userName===userName);
+};
   this.calcDelta= function (name){
       let userEntries=this.selectUserEntries(name);
       if(userEntries.length<=1) return 0; //if there is 0 or only as single record, the delta is 0

@@ -60,8 +60,10 @@ function round2Decimals(floatNumber){
 }
 
 function calcBMI(height,weight){
-  //IMPLEMENT ME
-  return 0;
+  let heightMeters = height * 0.01;
+  
+  let BMI = weight/(heightMeters*heightMeters);
+  return BMI;
 }
 
 /* "Database" emulated by maintained an in-memory array of BMI Entry objects 
@@ -106,7 +108,13 @@ function calcDelta(name){
 
 //looks up name in bmiDB and returns any found bmiEntry (undefined otherwise)
 function bmiLookup(name){
- //IMPLEMENT ME
+  let i=0;
+
+  for(i=bmiDB.length-1; i>=0;i--)
+   if(bmiDB[i].userName===name) {
+     return bmiDB[i]; 
+  }
+  
 }
 
 //Process the request that adds a new BMI reading to the DB
