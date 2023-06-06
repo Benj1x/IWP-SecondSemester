@@ -12,7 +12,7 @@ import { stdin as input, stdout as output } from 'process'
  * Mostly C-style programming!
 ***************************************************** */
 
-const outputFileName="bmiStatus.html";
+const outputFileName="LectureTwoBMI\\node\\bmiStatus.html";
 
 //constants for validating user input 
 const maxHeight=300;
@@ -208,13 +208,14 @@ function renderHTMLBMITable(userName){
   <table id="scoretable">
   <thead>
   <tr>
-  <th colspan="2">BMI history for user ${userName} </th>
+  <th colspan="3">BMI history for user ${userName} </th>
 </tr>
-    <tr><th>Weight </th><th>BMI</th></tr>
+    <tr><th>Weight </th><th>BMI</th><th>BMI change</th></tr>
   </thead>
   <tbody>`
   for(let entry of userEntries) 
-    bmiTable+= `<tr><td> ${entry.weight}</td> <td> ${calcBMI(entry.height,entry.weight)} </td></tr>`
+  //calcDelta(userName);
+  bmiTable+= `<tr><td> ${entry.weight}</td> <td> ${calcBMI(entry.height,entry.weight)} </td> <td> ${calcDelta(entry.userName)} </td> </tr>`
   bmiTable+=`</tbody></table>`
   return bmiTable;
 }

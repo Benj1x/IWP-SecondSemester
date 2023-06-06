@@ -12,7 +12,7 @@ import { stdin as input, stdout as output } from 'process'
  * More, but still relatively simple, JS style programming!
 ***************************************************** */
 
-const outputFileName="bmiStatus.html";
+const outputFileName=".\\node\\bmiStatus.html";
 
 //constants for validating user input 
 const maxHeight=300;
@@ -66,16 +66,20 @@ function BMIEntry(name,height,weight){
     this.userName=name;
     this.weight=weight;
     this.height=height;
+    this.BMIchange = 0;
 
     this.calcBMI=function(){ //IMPLEMENT ME
       let heightMeters = this.height * 0.01;
       let BMI = weight/(heightMeters*heightMeters);
+      
       return BMI;
     };
   
      this.calcBMIChange=function (otherBMIEntry){
-       return round2Decimals(this.calcBMI() - otherBMIEntry.calcBMI());   
+      this.BMIchange = round2Decimals(this.calcBMI() - otherBMIEntry.calcBMI()); 
+      return round2Decimals(this.calcBMI() - otherBMIEntry.calcBMI());   
      };
+
   }
 
   
@@ -180,20 +184,20 @@ ${renderHTMLBMITable(bmiEntry.userName)}
  return page;
 }
 
-
 function renderHTMLBMITable(userName){
   const userEntries=theBMIDB.selectUserEntries(userName);
  let bmiTable=`
   <table id="scoretable">
   <thead>
   <tr>
-  <th colspan="2">BMI history for user ${userName} </th>
+  <th colspan="3">BMI history for user ${userName} </th>
 </tr>
-    <tr><th>Weight </th><th>BMI</th></tr>
+    <tr><th>Weight </th><th>BMI</th> <th>Delta</th> </tr>
   </thead>
   <tbody>`
   for(let entry of userEntries) 
-    bmiTable+= `<tr><td> ${entry.weight}</td> <td> ${entry.calcBMI()} </td></tr>`
+    calcDelta(userName);
+    bmiTable+= `<tr><td> ${entry.weight}</td> <td> ${entry.calcBMI()} </td> <td> ${entry.BMIchange} </td> </tr>`
   bmiTable+=`</tbody></table>`
   return bmiTable;
 }
